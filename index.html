@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bien-Venue Agent Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            min-height: 100vh;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 15px 20px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: #6c757d;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-tab.active {
+            color: #2c3e50;
+            border-bottom-color: #2c3e50;
+            background: white;
+        }
+
+        .nav-tab:hover {
+            background: #e9ecef;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-section {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f8f9fa;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #2c3e50;
+            box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .checkbox-item:hover {
+            background: #f8f9fa;
+            border-color: #2c3e50;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .checkbox-item.checked {
+            background: #e8f4f8;
+            border-color: #2c3e50;
+        }
+
+        .work-arrangement-section {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .arrangement-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .arrangement-option {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .arrangement-option:hover {
+            border-color: #2c3e50;
+        }
+
+        .arrangement-option.selected {
+            border-color: #2c3e50;
+            background: #e8f4f8;
+        }
+
+        .arrangement-option input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: #2c3e50;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #34495e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(44, 62, 80, 0.3);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+            margin-right: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .status-banner {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .pending-item {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #ffc107;
+        }
+
+        .pending-status {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #fff3cd;
+            color: #856404;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .applications-grid {
+            display: grid;
+            gap: 15px;
+        }
+
+        .application-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 4px solid #17a2b8;
+        }
+
+        .application-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .application-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-small {
+            padding: 8px 15px;
+            font-size: 12px;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .container {
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">bien-Venue Agent Portal</div>
+            <div class="subtitle">Vendor & Company Registration</div>
+        </header>
+
+        <nav class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('register')">Register Company</button>
+            <button class="nav-tab" onclick="showTab('pending')">Pending Approvals</button>
+            <button class="nav-tab" onclick="showTab('applications')">Applications</button>
+        </nav>
+
+        <main class="content">
+            <!-- Registration Tab -->
+            <div id="register" class="tab-content active">
+                <div class="form-section">
+                    <h2 class="section-title">Company Information</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Company Name *</label>
+                            <input type="text" class="form-input" id="companyName" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">CAC Registration Number *</label>
+                            <input type="text" class="form-input" id="cacNumber" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">ITF Contribution Status</label>
+                            <select class="form-select" id="itfStatus">
+                                <option value="">Select Status</option>
+                                <option value="current">Current & Up-to-date</option>
+                                <option value="pending">Payment Pending</option>
+                                <option value="exempt">Exempt</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Primary Location</label>
+                            <select class="form-select" id="primaryState">
+                                <option value="">Select State</option>
+                                <option value="Lagos">Lagos</option>
+                                <option value="Rivers">Rivers</option>
+                                <option value="Edo">Edo</option>
+                                <option value="FCT">FCT (Abuja)</option>
+                                <option value="Cross River">Cross River</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Senatorial Zone</label>
+                            <select class="form-select" id="senatorialZone" disabled>
+                                <option value="">Select Zone</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Industry Sector</label>
+                            <select class="form-select" id="industrySector">
+                                <option value="">Select Sector</option>
+                                <option value="technology">Technology</option>
+                                <option value="finance">Finance</option>
+                                <option value="healthcare">Healthcare</option>
+                                <option value="sports">Sports & Recreation</option>
+                                <option value="marketing">Marketing & Advertising</option>
+                                <option value="education">Education</option>
+                                <option value="manufacturing">Manufacturing</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label">Company Description</label>
+                            <textarea class="form-textarea" id="companyDescription" placeholder="Brief description of your company and what you do..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2 class="section-title">Services & Opportunities</h2>
+                    <div class="form-group">
+                        <label class="form-label">Services Offered</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" value="internships">
+                                <span>Internship Programs</span>
+                            </div>
+                            <div class="checkbox-item" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" value="sports_teams">
+                                <span>Sports Teams</span>
+                            </div>
+                            <div class="checkbox-item" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" value="marketing_sprints">
+                                <span>Marketing Sprints</span>
+                            </div>
+                            <div class="checkbox-item" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" value="tech_training">
+                                <span>Tech Training</span>
+                            </div>
+                            <div class="checkbox-item" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" value="business_development">
+                                <span>Business Development</span>
+                            </div>
+                            <div class="checkbox-item" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" value="coaching">
+                                <span>Coaching & Mentorship</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Available Roles</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" value="developer">
+                                <span>Developer</span>
+                            </div>
+                            <div class="checkbox-item" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" value="designer">
+                                <span>Designer</span>
+                            </div>
+                            <div class="checkbox-item" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" value="analyst">
+                                <span>Business Analyst</span>
+                            </div>
+                            <div class="checkbox-item" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" value="marketer">
+                                <span>Marketing Specialist</span>
+                            </div>
+                            <div class="checkbox-item" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" value="athlete">
+                                <span>Athlete</span>
+                            </div>
+                            <div class="checkbox-item" onclick="toggleCheckbox(this)">
+                                <input type="checkbox" value="coach">
+                                <span>Coach/Trainer</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="work-arrangement-section">
+                        <label class="form-label">Work Arrangements Available</label>
+                        <div class="arrangement-options">
+                            <div class="arrangement-option" onclick="toggleArrangement(this)">
+                                <input type="checkbox" value="on_site">
+                                <span>On-Site</span>
+                            </div>
+                            <div class="arrangement-option" onclick="toggleArrangement(this)">
+                                <input type="checkbox" value="hybrid">
+                                <span>Hybrid</span>
+                            </div>
+                            <div class="arrangement-option" onclick="toggleArrangement(this)">
+                                <input type="checkbox" value="remote">
+                                <span>Remote</span>
+                            </div>
+                            <div class="arrangement-option" onclick="toggleArrangement(this)">
+                                <input type="checkbox" value="flexible">
+                                <span>Flexible</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Work Arrangement Details</label>
+                            <textarea class="form-textarea" id="workDetails" placeholder="e.g., Hybrid 3 days/week, remote Fridays; Full remote for specific roles; etc."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2 class="section-title">KYC & Verification</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Contact Person *</label>
+                            <input type="text" class="form-input" id="contactPerson" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Contact Email *</label>
+                            <input type="email" class="form-input" id="contactEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Business Phone *</label>
+                            <input type="tel" class="form-input" id="businessPhone" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Years in Operation</label>
+                            <select class="form-select" id="yearsOperation">
+                                <option value="">Select Range</option>
+                                <option value="0-1">0-1 years</option>
+                                <option value="2-5">2-5 years</option>
+                                <option value="6-10">6-10 years</option>
+                                <option value="10+">10+ years</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label">Previous Intern/Employee Feedback</label>
+                            <textarea class="form-textarea" id="employeeFeedback" placeholder="Share any testimonials or feedback from previous interns/employees (optional)"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 25px; text-align: right;">
+                        <button class="btn btn-secondary" onclick="saveDraft()">Save Draft</button>
+                        <button class="btn btn-primary" onclick="submitRegistration()">Submit for Approval</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pending Approvals Tab -->
+            <div id="pending" class="tab-content">
+                <div class="status-banner">
+                    <strong>Review Process:</strong> All submissions undergo admin review for quality assurance and AI training purposes. Typical review time is 2-3 business days.
+                </div>
+                
+                <div id="pendingList">
+                    <div class="pending-item">
+                        <div class="pending-status">Under Review</div>
+                        <h3>TechHub Lagos</h3>
+                        <p>Submitted: 2025-09-25 | CAC: RC123456</p>
+                        <p>Services: Internships, Tech Training | Work: On-site, Hybrid</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Applications Tab -->
+            <div id="applications" class="tab-content">
+                <div class="applications-grid" id="applicationsList">
+                    <div class="application-card">
+                        <div class="application-header">
+                            <h3>John Doe</h3>
+                            <span class="pending-status">New Application</span>
+                        </div>
+                        <p><strong>Role:</strong> Developer Intern</p>
+                        <p><strong>University:</strong> UNILAG</p>
+                        <p><strong>Location:</strong> Lagos Central</p>
+                        <p><strong>Applied:</strong> 2025-09-27</p>
+                        
+                        <div class="application-actions">
+                            <button class="btn btn-success btn-small" onclick="hireApplicant('John Doe')">Hire</button>
+                            <button class="btn btn-secondary btn-small" onclick="reviewLater('John Doe')">Review Later</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const SENATORIAL_ZONES = {
+            "Lagos": ["Lagos Central", "Lagos East", "Lagos West"],
+            "Rivers": ["Rivers East", "Rivers South-East", "Rivers West"],
+            "Edo": ["Edo Central", "Edo North", "Edo South"],
+            "FCT": ["FCT"],
+            "Cross River": ["Cross River Central", "Cross River North", "Cross River South"]
+        };
+
+        function showTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function toggleCheckbox(element) {
+            const checkbox = element.querySelector('input[type="checkbox"]');
+            checkbox.checked = !checkbox.checked;
+            element.classList.toggle('checked', checkbox.checked);
+        }
+
+        function toggleArrangement(element) {
+            const checkbox = element.querySelector('input[type="checkbox"]');
+            checkbox.checked = !checkbox.checked;
+            element.classList.toggle('selected', checkbox.checked);
+        }
+
+        function updateSenatorialZones() {
+            const stateSelect = document.getElementById('primaryState');
+            const zoneSelect = document.getElementById('senatorialZone');
+            const selectedState = stateSelect.value;
+
+            zoneSelect.innerHTML = '<option value="">Select Zone</option>';
+            
+            if (selectedState && SENATORIAL_ZONES[selectedState]) {
+                zoneSelect.disabled = false;
+                SENATORIAL_ZONES[selectedState].forEach(zone => {
+                    const option = document.createElement('option');
+                    option.value = zone;
+                    option.textContent = zone;
+                    zoneSelect.appendChild(option);
+                });
+            } else {
+                zoneSelect.disabled = true;
+            }
+        }
+
+        function saveDraft() {
+            const formData = collectFormData();
+            localStorage.setItem('vendorDraft', JSON.stringify(formData));
+            alert('Draft saved successfully!');
+        }
+
+        function submitRegistration() {
+            const formData = collectFormData();
+            
+            // Basic validation
+            if (!formData.companyName || !formData.cacNumber || !formData.contactPerson || !formData.contactEmail) {
+                alert('Please fill in all required fields (marked with *)');
+                return;
+            }
+
+            // Store in pending approvals
+            const pending = JSON.parse(localStorage.getItem('pendingApprovals') || '[]');
+            pending.push({
+                ...formData,
+                id: Date.now(),
+                status: 'under_review',
+                submittedDate: new Date().toISOString(),
+                reviewDate: null
+            });
+            localStorage.setItem('pendingApprovals', JSON.stringify(pending));
+
+            // Clear form
+            document.querySelectorAll('.form-input, .form-select, .form-textarea').forEach(input => {
+                input.value = '';
+            });
+            document.querySelectorAll('.checkbox-item.checked, .arrangement-option.selected').forEach(item => {
+                item.classList.remove('checked', 'selected');
+                item.querySelector('input').checked = false;
+            });
+
+            alert('Registration submitted successfully! You will be notified when reviewed.');
+            showTab('pending');
+        }
+
+        function collectFormData() {
+            const services = Array.from(document.querySelectorAll('.checkbox-item.checked input'))
+                .map(input => input.value);
+            const roles = Array.from(document.querySelectorAll('.checkbox-item.checked input'))
+                .map(input => input.value);
+            const workArrangements = Array.from(document.querySelectorAll('.arrangement-option.selected input'))
+                .map(input => input.value);
+
+            return {
+                companyName: document.getElementById('companyName').value,
+                cacNumber: document.getElementById('cacNumber').value,
+                itfStatus: document.getElementById('itfStatus').value,
+                primaryState: document.getElementById('primaryState').value,
+                senatorialZone: document.getElementById('senatorialZone').value,
+                industrySector: document.getElementById('industrySector').value,
+                companyDescription: document.getElementById('companyDescription').value,
+                services: services,
+                roles: roles,
+                workArrangements: workArrangements,
+                workDetails: document.getElementById('workDetails').value,
+                contactPerson: document.getElementById('contactPerson').value,
+                contactEmail: document.getElementById('contactEmail').value,
+                businessPhone: document.getElementById('businessPhone').value,
+                yearsOperation: document.getElementById('yearsOperation').value,
+                employeeFeedback: document.getElementById('employeeFeedback').value
+            };
+        }
+
+        function hireApplicant(name) {
+            alert(`${name} hired! Application sent to admin for final approval.`);
+            // Remove from applications list
+            event.target.closest('.application-card').style.display = 'none';
+        }
+
+        function reviewLater(name) {
+            alert(`${name}'s application marked for later review.`);
+        }
+
+        function loadPendingApprovals() {
+            const pending = JSON.parse(localStorage.getItem('pendingApprovals') || '[]');
+            const pendingList = document.getElementById('pendingList');
+            
+            if (pending.length === 0) {
+                pendingList.innerHTML = '<p>No pending submissions.</p>';
+                return;
+            }
+
+            pendingList.innerHTML = pending.map(item => `
+                <div class="pending-item">
+                    <div class="pending-status">${item.status.replace('_', ' ')}</div>
+                    <h3>${item.companyName}</h3>
+                    <p>Submitted: ${new Date(item.submittedDate).toLocaleDateString()} | CAC: ${item.cacNumber}</p>
+                    <p>Services: ${item.services.join(', ')} | Work: ${item.workArrangements.join(', ')}</p>
+                </div>
+            `).join('');
+        }
+
+        // Initialize
+        document.getElementById('primaryState').addEventListener('change', updateSenatorialZones);
+        
+        // Load data when switching to pending tab
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('nav-tab') && e.target.textContent.includes('Pending')) {
+                setTimeout(loadPendingApprovals, 100);
+            }
+        });
+
+        // Load draft on page load
+        const draft = JSON.parse(localStorage.getItem('vendorDraft') || '{}');
+        if (Object.keys(draft).length > 0) {
+            // Populate form with draft data
+            Object.keys(draft).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.value = draft[key];
+                }
+            });
+        }
+    </script>
+</body>
+</html>
